@@ -70,7 +70,7 @@ impl Gsi
             .unwrap()
             .stdout
             .expect("bruh");
-        &logs.push_str("gsi making started\n");
+        &logs.push_str("STARTED MAKING GSIs\n");
         let msg = bot.answer(&logs).send().await?;
 
         // here starts the bufreader which will get us some live ouput of the gsi
@@ -150,18 +150,18 @@ impl Gsi
             let mut reply = String::new();
             reply.push_str(
                 format!(
-                    "{} - GSI\ninformation:\n\n<code>{}</code>\n\nAB:{}\naonly:{}"
-                    , rom_name.as_str(), build_info.as_str(), ab.as_str(), aonly.as_str()).as_str());
+                    "{} - GSI\n\ninformation:\n<code>{}</code>\n\nAB:{}\nAONLY:{}\nCREDITS:\n<a href=\"https://github.com/aktham3210/Rust-5x\">Rust-5x</a>  |  <a href=\"https://github.com/erfanoabdi/ErfanGSIs\">ErfanGSIs</a>"
+                    , rom_name.as_str().replace("Generic:",""), build_info.as_str(), ab.as_str(), aonly.as_str()).as_str());
             let buttons = vec![InlineKeyboardButton::url(
-                "ErfanGSIs-VelanGSIs".to_string(), "https://github.com/Velosh/ErfanGSIs-VelanGSIs".to_string()),
-                               InlineKeyboardButton::url("Rust-5X".to_string(), "https://github.com/aktham3210/Rust-5X".to_string())
+                "Channel".to_string(), "https://t.me/ALTF4GSI".to_string()),
+                               InlineKeyboardButton::url("Support".to_string(), "https://t.me/ALTF4GSIs".to_string())
             ];
             let markup = InlineKeyboardMarkup::default()
                 .append_row(buttons);
             bot.bot.send_message(channel_id,reply).parse_mode(ParseMode::HTML).disable_web_page_preview(true).reply_markup(markup).send().await?;
-            bot.answer("completed").send().await?;
+            bot.answer("COMPLETED").send().await?;
         } else {
-            bot.answer("gsi failed").send().await?;
+            bot.answer("GSI FAILED").send().await?;
         }
         log::info!("excuted function: /gsi");
         Ok(())
